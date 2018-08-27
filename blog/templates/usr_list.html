@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+{% load static %}
+{% if request.user.is_admin %}
+{% include "base_manager.html" %}
+{% elif request.user.is_employee %}
+{% include "base_employee.html" %}
+{% else %}
+{% include "base_user.html" %}
+{% endif %}
+
+<html>
+<title>مرام پرداخت</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-61">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="icon" type="image/png" href="{% static 'blog/images/icons/favicon.ico' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/index_w3.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/index_w3-theme-black.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/uikit-rtl.css' %}" />
+
+
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto","B Nazanin", sans-serif;}
+table {
+    display: block;
+    overflow-x: auto;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+}
+</style>
+<body>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main" style="margin-right:250px" dir="rtl">
+{% block content %}
+	<div class="w3-row w3-padding-large w3-padding-64 w3-container" dir="rtl">
+		<h1 class="w3-text-teal">لیست کاربران</h1><br>
+        <ul class="messages">
+			{% for message in messages %}
+			<li>{{ message }}</li>
+			{% endfor %}
+		</ul>
+
+		<table id="time" style="top: 5%" class="rtl uk-table uk-table uk-table-striped" >
+               <thead>
+                    <tr>
+                        <th class="uk-width-auto"><strong> نام</strong></th>
+                        <th class="uk-width-auto" ><strong> </strong></th>
+                        <th class="uk-width-auto"><strong> </strong></th>
+                        <th class="uk-width-auto"><strong> </strong></th>
+                    </tr>
+               </thead>
+
+               <tbody>
+                {% for e in employees %}
+                    <tr>
+                        <th class="uk-width-auto">{{e.name }} </th>
+                        <th class="uk-width-auto">
+                        <form method="post" action="{% url 'see_usr_profile' pke=e.pk %}" >
+                            {% csrf_token %}
+                            <input id="submit1" type="submit" class="uk-button" value="مشاهده پروفایل" />
+                        </form>
+                        </th>
+
+
+
+                         <th class="uk-width-auto">
+                        <form method="post" action="{% url 'see_usr_transactions' pke=e.pk %}" >
+                            {% csrf_token %}
+                            <input id="submit3" type="submit" class="uk-button" value="تراکنش ها" />
+                        </form>
+                        </th>
+
+                        <th class="uk-width-auto">
+                        <form method="post" action="{% url 'ban-usr' pke=e.pk %}" >
+                            {% csrf_token %}
+                            {% if e.status == "enabled" %}
+                            <input id="submit4" type="submit" class="uk-button" value="محدود کردن" />
+                            {% else %}
+                            <input id="submit5" type="submit" class="uk-button" value="آنبلاک کردن" />
+                            {% endif %}
+                        </form>
+                        </th>
+
+
+                    </tr>
+
+               {% endfor %}
+
+               </tbody>
+
+
+           </table><br><br>
+	</div>
+
+{% endblock %}
+<!-- END MAIN -->
+</div>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+
+</script>
+</body>
+</html>

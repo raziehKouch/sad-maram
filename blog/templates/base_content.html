@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+{% load static %}
+
+
+<html>
+<title>مرام پرداخت</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-61">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="icon" type="image/png" href="{% static 'blog/images/icons/favicon.ico' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/index_w3.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/index_w3-theme-black.css' %}" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto","B Nazanin", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+}
+</style>
+<body>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main" style="margin-right:250px" dir="rtl">
+
+	<div id="about" class="w3-row w3-padding-large w3-padding-64 w3-container">
+		  <h1 class="w3-text-teal">درباره ما</h1>
+		  <p>کار شرکت مرام پرداخت در سال 1396 و به عنوان يک پروژه درسي آغاز شد</br>
+		  تيم ما به عنوان يک گروه متشکل از سه دانشجوي فناوري اطلاعات دانشگاه صنعتي شريف، کار خود را با هدف ايجاد يک سامانه پرداخت آنلاين ارزي براي تسهيل خدمات بانکي و مالي آغاز کرد</br>
+		  تيم مرام پرداخت يک گروه با انرژي، خلاق و داراي ايده هاي بکر است که اين امر در کنار اشتياق به يادگيري و همينطور دارا بودن مهارت هاي پايه، از مزاياي اين تيم محسوب مي شود</p>
+	</div>
+
+  <div id="policy" class="w3-row w3-padding-large w3-padding-64 w3-container">
+	  <h1 class="w3-text-teal">قوانين</h1>
+	  <p>در اين بخش قوانين سايت نوشته شده
+	  <ul>
+		<li>قانون اول</li>
+		<li>قانون دوم</li>
+		<li>قانون سوم</li>
+	  </ul></p>
+  </div>
+
+  <div id="service" class="w3-row w3-padding-large w3-padding-64 w3-container">
+      <h1 class="w3-text-teal">خدمات</h1>
+      <p style="text-align:right">در این بخش خدمات قابل دسترسی در سایت توضیح داده شده است</p>
+  </div>
+
+  <div id="nerkh" class="w3-row w3-padding-large w3-padding-64 w3-container">
+		<h1 class="w3-text-teal">نرخ کارمزدها</h1>
+		<p style="text-align:right">نرخ کارمزدها به شرح زير است:</p>
+		<p style="text-align:right">((يه جدول که توش کارمزد هر کار تعريف شده))</p>
+  </div>
+
+  <div id="nerkh-arz" class="w3-row w3-padding-large w3-padding-64 w3-container">
+		<h1 class="w3-text-teal">نرخ لحظه اي ارز</h1>
+		<p style="text-align:right">نرخ کنوني ارز به شرح زير است:</p>
+		<p style="text-align:right">قیمت دلار: {{ dollar.قیمت }} ریال
+		</br>
+		قیمت یورو: {{ euro.قیمت }} ریال</p>
+		<p style="text-align:right">براي مشاهده مقدار تبديل شده به ارز مورد نظر پس از کسر کارمزد تبديل، مي توانيد از بخش زير استفاده کنيد</p>
+		<div>
+
+		<form method="post" action="index">
+			<!--todo: taghir-->
+			{% csrf_token %}
+			<p>تبدیل از</p>
+			<select id="from" name = "from" >
+				<OPTION Value="rial">ریال</OPTION>
+				<OPTION Value="dollar">دلار</OPTION>
+				<OPTION Value="euro">یورو</OPTION>
+			</select>
+			<p>به</p>
+			<select id="to" name="to">
+				<OPTION Value="rial">ریال</OPTION>
+				<OPTION Value="dollar">دلار</OPTION>
+				<OPTION Value="euro">یورو</OPTION>
+			</select>
+			<p>مبلغ ورودي:</p>
+			<input id="amount-from" name="amount-from" type="text" value=""/>
+
+            <input type="hidden"  name="dollar" value={{ dollar.قیمت }} >
+            <input type="hidden"  name="euro" value={{ euro.قیمت }} >
+
+			<input name="change_submit" class="w3-button w3-hover-black w3-teal" id="change" type="submit" value="تبدیل"/>
+		</form>
+		<p>مبلغ به ارز مقصد با احتساب کارمزد:</p>
+		<label id="amount-to">{{answer}}</label>
+		</div>
+  </div>
+
+  <div id="contact" class="w3-row w3-padding-large w3-padding-64 w3-container">
+	<div id="map" style="width:250px;height:250px" class="w3-third w3-container"></div>
+    <div class="w3-twothird w3-container">
+      <h1 class="w3-text-teal">ارتباط با ما</h1>
+      <p style="text-align:right">آدرس: ايران، تهران، خيابان آزادي، دانشگاه صنعتي شريف، دانشکده کامپيوتر</br>
+	  شماره تماس: 0987654321</br></br></br>
+	  در صورت تمايل مي توانيد با استفاده از فرم زير پيام خود را ارسال کنيد</br>
+	  </p>
+		{% block content %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+ <h1 ALIGN=RIGHT>ارتباط با ما</h1>
+    <form  ALIGN=RIGHT method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button name="contact_submit" ALIGN=RIGHT type="submit" class="w3-button w3-hover-black w3-teal">ارسال</button>
+    </form>
+{% endblock %}
+	  <!--<form method="post" action="index" >-->
+		<!--<table style="text-align:right">-->
+			<!--<tr>-->
+				<!--<td><p>نام</p></td>-->
+				<!--<td><input id="name_box" type="text" value="" name="first_name" style="text-align:right"/></td>-->
+			<!--</tr>-->
+			<!--<tr>-->
+				<!--<td><p>*ايميل</p></td>-->
+				<!--<td><input id="email_box" type="text" value="" name="email"/></td>-->
+			<!--</tr>-->
+			<!--<tr>-->
+				<!--<td><p>*پيام</p></td>-->
+				<!--<td><textarea id="message_box" name="message" rows="10" cols="40" style="text-align:right"></textarea></td>-->
+			<!--</tr>-->
+			<!--<tr>-->
+				<!--<td></td>-->
+				<!--<td dir="rtl"><input id="submit" type="submit" value="ارسال"/></td>-->
+			<!--</tr>-->
+		<!--</table>-->
+		<!--</form>-->
+    </div>
+  </div>
+
+  <footer id="myFooter">
+    <div class="w3-container w3-theme-l1">
+      <p>| مرام پرداخت</p>
+    </div>
+  </footer>
+
+<!-- END MAIN -->
+</div>
+
+<script>
+// Check if inputs are valid
+<!--function confirmInput() {-->
+			<!--emailbox = document.getElementById("email_box");-->
+			<!--messagebox = document.getElementById("message_box");-->
+			<!--if(emailbox.value==null || emailbox.value=="" || messagebox.value==null || messagebox.value==""){-->
+				<!--alert("بايد تمام قسمت هاي * دار را پرکنيد!");-->
+			<!--}-->
+
+			<!--var rea = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;-->
+			<!--var x = rea.test(emailbox.value);-->
+			<!--if (!x) {-->
+				<!--alert('ساختار ايميل نامعتبر است!');-->
+			<!--}-->
+		<!--}-->
+
+// Open location on map
+function myMap() {
+    var mapOptions = {
+        center: new google.maps.LatLng(35.702513, 51.351243),
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+    }
+	var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
+
+</body>
+</html>

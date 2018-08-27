@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+{% load static %}
+{% include "base.html" %}
+
+
+{% block content %}
+<title>مرام پرداخت</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-61">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/index_w3.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/css/index_w3-theme-black.css' %}" />
+    <link href='http://www.fontonline.ir/css/BMitra.css' rel='stylesheet' type='text/css'>
+    <!--<link rel="stylesheet" type="text/css" href= />-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <link href="https://cdn.rawgit.com/rastikerdar/samim-font/v[X.Y.Z]/dist/font-face.css" rel="stylesheet" type="text/css" />
+
+
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto","B Nazanin", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+  }
+
+/* Full-width input fields */
+input[type=text], input[type=password], input[type=email] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    float: right !important;
+    align: right;
+
+}
+lable{
+float: right !important;
+align: right;
+}
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+.error{
+color:red;
+}
+.error input, .error select {
+border: 2px red solid;
+opacity: 80%;
+}
+@media screen and (max-width: 460px) {
+     input[type=submit] , input[type=text] , input[type=password], input[type=email]{
+        margin-top: 0;
+        width: 90%;
+        font-size: 18px;
+        overflow-x: visible;
+
+
+    }
+    div, #dd{
+        width:100%;
+                overflow-x: visible;
+
+    }
+    button{
+    width:50%;
+    }
+}
+
+
+</style>
+    <nav class="flex clearfix " id="myTopnav" style="float:right;">
+        <div class="topnav" >
+          <a  href="login" style="color:white" >بازگشت به صفحه ورود</a>
+        </div>
+    </nav>
+
+
+<div  style="width:100%" >
+
+
+    <div  id="dd" class="uk-grid  uk-text-right " style=" width:70%; padding: 5%; position: relative " dir="rtl">
+<h2 style="text-direction: rtl; float: right;">ثبت نام</h2><br>
+
+<form method="post" action="upload_file" id="three" enctype="multipart/form-data" style="float:right;">
+    {% csrf_token %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+      {{ form.as_p }}
+
+        {% if not messages %}
+         <button type="submit" >ثبت نام</button>
+        {% endif %}
+
+</form>
+    </div>
+</div>
+
+
+{% endblock %}

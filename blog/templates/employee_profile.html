@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+{% load static %}
+{% if request.user.is_admin %}
+{% include "base_manager.html" %}
+{% elif request.user.is_employee %}
+{% include "base_employee.html" %}
+{% else %}
+{% include "base_user.html" %}
+{% endif %}
+
+<html>
+<title>مرام پرداخت</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-61">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="icon" type="image/png" href="{% static 'blog/images/icons/favicon.ico' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/index_w3.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/index_w3-theme-black.css' %}" />
+
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto","B Nazanin", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+}
+</style>
+<body>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main" style="margin-right:250px" dir="rtl">
+{% block content %}
+
+	<div class="w3-row w3-padding-large w3-padding-64 w3-container" dir="rtl">
+		<h1 class="w3-text-teal">پروفایل کارمند</h1><br>
+                       نام:  <label class="uk-width-auto">{{e.name }} </label><br>
+                   ایمیل:     <label class="uk-width-auto">{{e.email }} </label><br>
+                    شماره حساب:    <label class="uk-width-auto">{{e.acc_num }} </label><br>
+                       حقوق:<label class="uk-width-auto">{{e.salary }} </label><br>
+                       کیف پول ریال:<label class="uk-width-auto">{{e.rial_wallet }} </label><br>
+                      کیف پول دلار:   <label class="uk-width-auto">{{e.dollar_wallet }} </label><br>
+                        کیف پول یورو: <label class="uk-width-auto">{{e.euro_wallet }} </label>
+        <br/>
+        <br/>
+  <a class="w3-button w3-hover-black w3-teal" href="{% url 'employee_list' %}">بازگشت</a>
+
+	</div>
+
+{% endblock %}
+<!-- END MAIN -->
+</div>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+
+</script>
+</body>
+</html>
+
+
+
+
+
+

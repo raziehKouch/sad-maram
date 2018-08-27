@@ -1,0 +1,69 @@
+{% if request.user.is_admin %}
+{% include "base_manager.html" %}
+{% elif request.user.is_employee %}
+{% include "base_employee.html" %}
+{% else %}
+{% include "base_user.html" %}
+{% endif %}
+
+{% load static %}
+
+<html>
+<title>مرام پرداخت</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-61">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="icon" type="image/png" href="{% static 'blog/images/icons/favicon.ico' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/index_w3.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/index_w3-theme-black.css' %}" />
+<style>
+table {
+    display: block;
+    overflow-x: auto;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto","B Nazanin", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+}
+</style>
+<body>
+  <!-- Overlay effect when opening sidebar on small screens -->
+  <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+  <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+  <div class="w3-main" style="margin-right:250px" dir="rtl">
+    {% block content %}
+
+    <div class="w3-row w3-padding-large w3-padding-64 w3-container" dir="rtl">
+      <h1 class="w3-text-teal">جزییات تراکنش</h1><br>
+      <table ALIGN=RIGHT style="width:60%">
+        <tr>
+          <th ALIGN=RIGHT>نام کاربری</th>
+          <td ALIGN=RIGHT>{{ielts.name}}</td>
+        </tr>
+        <tr>
+          <th ALIGN=RIGHT>رمز عبور</th>
+          <td ALIGN=RIGHT>{{ielts.password}}</td>
+        </tr>
+        <tr>
+          <th ALIGN=RIGHT>لینک سایت ثبت نام</th>
+          <td ALIGN=RIGHT>{{ielts.site}}</td>
+        </tr>
+      </table>
+    </div>
+    {% endblock %}
+    <!-- END MAIN -->
+  </div>
+</body>
+</html>

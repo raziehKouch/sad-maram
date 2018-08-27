@@ -1,0 +1,75 @@
+from django.conf.urls import url
+from django.urls import path
+from . import views
+urlpatterns = [
+    path('', views.redirect_index, name='redirect_index'),
+    url(r'^redirect_index$', views.redirect_index, name='redirect_index'),
+    # path('', views.index, name='index'),
+    # path('', views.index_user, name='index_user'),
+    # path('', views.index_employee, name='index_employee'),
+    # path('', views.index_manager, name='index_manager'),
+    url(r'^index$', views.index, name='index'),
+    url(r'^index_user$', views.index_user, name='index_user'),
+    url(r'^index_employee$', views.index_employee, name='index_employee'),
+    url(r'^index_manager$', views.index_manager, name='index_manager'),
+    url(r'^register$', views.register, name='register'),
+
+    url(r'^message$', views.message, name='message'),
+
+    url(r'^user_profile_edit$', views.user_profile_edit, name='user_profile_edit'),
+    url(r'^user_bala_pass$', views.user_bala_pass, name='user_bala_pass'),
+    url(r'^user_change_pass$', views.user_change_pass, name='user_change_pass'),
+    url(r'^user_charge$', views.user_charge, name='user_charge'),
+    url(r'^user_unknownpay$', views.user_unknownpay, name='user_unknownpay'),
+    url(r'^user_change$', views.user_change, name='user_change'),
+    url(r'^user_service$', views.user_service, name='user_service'),
+    # url(r'^user_service_GRE$', views.user_service_GRE, name='user_service_GRE'),
+    path('user_service_gre', views.user_service_gre, name='user_service_gre'),
+    path('user_service_toefl', views.user_service_toefl, name='user_service_toefl'),
+    path('user_service_ielts', views.user_service_ielts, name='user_service_ielts'),
+    path('user_service_ielts', views.user_service_ielts, name='user_service_ielts'),
+    path('uni', views.uni, name='uni'),
+    path('pay', views.pay, name='pay'),
+
+    url(r'^employee_profile_edit$', views.employee_profile_edit, name='employee_profile_edit'),
+    url(r'^employee_bala_pass$', views.employee_bala_pass, name='employee_bala_pass'),
+    url(r'^employee_change_pass$', views.employee_change_pass, name='employee_change_pass'),
+    url(r'^employee_charge$', views.employee_charge, name='employee_charge'),
+    url(r'^waitingtransactions$', views.waitingtransactions, name='waitingtransactions'),
+    url(r'^employeetransactions$', views.employeetransactions, name='employeetransactions'),
+    url(r'^(?P<pke>\d+)/runtransactions', views.runtransactions, name='runtransactions'),
+    url(r'^(?P<pke>\d+)/transaction', views.transaction, name='transaction'),
+    url(r'^(?P<pke>\d+)/accept', views.accept, name='accept'),
+    url(r'^(?P<pke>\d+)/no', views.no, name='no'),
+    url(r'^(?P<pke>\d+)/yes', views.yes, name='yes'),
+
+    url(r'^(?P<pke>\d+)/inform', views.inform, name='inform'),
+
+    url(r'^manager_profile_edit$', views.manager_profile_edit, name='manager_profile_edit'),
+    url(r'^manager_bala_pass$', views.manager_bala_pass, name='manager_bala_pass'),
+    url(r'^manager_change_pass$', views.manager_change_pass, name='manager_change_pass'),
+    url(r'^manager_charge$', views.manager_charge, name='manager_charge'),
+    url(r'^managertransactions$', views.managertransactions, name='managertransactions'),
+
+    url(r'^usr_list$', views.usr_list, name='usr_list'),
+    url(r'^(?P<pke>\d+)/usrProfile$', views.see_usr_profile, name='see_usr_profile'),
+    url(r'^(?P<pke>\d+)/usr_transactions$', views.see_usr_transactions, name='see_usr_transactions'),
+    url(r'^(?P<pke>\d+)/usertransactions$', views.usertransactions, name='usertransactions'),
+    url(r'^(?P<pke>\d+)/usr_ban$', views.ban_usr, name='ban-usr'),
+
+    url(r'^employee_list$', views.employee_list, name='employee_list'),
+    url(r'^(?P<pke>\d+)/empProfile$', views.see_employee_profile, name='see_employee_profile'),
+    url(r'^(?P<pke>\d+)/emp_transactions$', views.see_employee_transactions, name='see_employee_transactions'),
+    url(r'^(?P<pke>\d+)/ban_emp$', views.ban_employee, name='ban_employee'),
+    url(r'^bala_add_employee$', views.bala_add_employee, name='bala_add_employee'),
+    url(r'^add_employee$', views.add_employee, name='add_employee'),
+    url(r'^(?P<pke>\d+)/change_salaryyy$', views.bala_change_employee_salary, name='change_empsalary'),
+    url(r'^(?P<pke>\d+)/change_salary$', views.change_salary, name='change_salary'),
+
+    url(r'^edit$', views.edit, name='edit'),
+    url(r'^bala_edit_emp$', views.bala_edit_emp, name='bala_edit_emp'),
+    url(r'^bala_edit_manager$', views.bala_edit_manager, name='bala_edit_manager'),
+    url(r'^upload_file$', views.upload_file, name='upload_file'),
+    url(r'^(?P<pkt>\d+)/emp_transactions_context$', views.see_transaction_context, name='see_transaction_context'),
+
+]

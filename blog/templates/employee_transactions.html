@@ -1,0 +1,87 @@
+{% if request.user.is_admin %}
+{% include "base_manager.html" %}
+{% elif request.user.is_employee %}
+{% include "base_employee.html" %}
+{% else %}
+{% include "base_user.html" %}
+{% endif %}
+
+{% load static %}
+
+<html>
+<title>مرام پرداخت</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-61">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="icon" type="image/png" href="{% static 'blog/images/icons/favicon.ico' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/index_w3.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'blog/css/index_w3-theme-black.css' %}" />
+<style>
+table {
+    display: block;
+    overflow-x: auto;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto","B Nazanin", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+}
+</style>
+<body>
+  <!-- Overlay effect when opening sidebar on small screens -->
+  <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+  <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+  <div class="w3-main" style="margin-right:250px" dir="rtl">
+    {% block content %}
+
+    <div class="w3-row w3-padding-large w3-padding-64 w3-container" dir="rtl">
+      <h1 class="w3-text-teal">تراکنش های کارمند {{e.name}}</h1><br>
+          <a class="w3-button w3-hover-black w3-teal" href="{% url 'employee_list' %}">بازگشت</a><br/><br/>
+
+        <table id="time" style="top: 5%" class="rtl uk-table uk-table uk-table-striped" >
+               <thead>
+                    <tr>
+                        <th class="uk-width-auto"><strong> نوع</strong></th>
+                        <th class="uk-width-auto" ><strong> وضعیت</strong></th>
+                        <th class="uk-width-auto"><strong> موضوع</strong></th>
+                        <th class="uk-width-auto"><strong>تاریخ </strong></th>
+                        <th class="uk-width-auto"><strong> کاربر</strong></th>
+                        <th class="uk-width-auto"><strong> جزییات تراکنش</strong></th>
+                    </tr>
+               </thead>
+               <tbody>
+                {% for t in transactions %}
+                    <tr>
+                        <th class="uk-width-auto">{{ t.type }} </th>
+                        <th class="uk-width-auto">{{ t.status }} </th>
+                        <th class="uk-width-auto">{{ t.subject }} </th>
+                        <th class="uk-width-auto">{{ t.date }} </th>
+                        <th class="uk-width-auto">{{ t.user }} </th>
+
+                       <th class="uk-width-auto">
+                        <form method="post" action="{% url 'see_transaction_context' pkt=t.pk %}" >
+                            {% csrf_token %}
+                            <input id="submit3" type="submit" class="w3-button w3-hover-black w3-teal" value="جزییات تراکنش" />
+                        </form>
+                        </th>
+                    </tr>
+               {% endfor %}
+               </tbody>
+           </table><br><br>
+    </div>
+    {% endblock %}
+    <!-- END MAIN -->
+  </div>
+</body>
+</html>
